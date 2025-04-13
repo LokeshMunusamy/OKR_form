@@ -59,11 +59,14 @@ small{
     text-align: center;
     line-height: 26px;
 }
-.under-line{
+.under-line,.under-line1{
     width: 40%;
     align-self: center;
     height: .3rem;
-    background-color: aqua;
+}
+.active{
+    background-color: rgb(51, 219, 104);
+    transition: background-color 0.5s ease;
 }
 .nvigation{
     width: 90%;
@@ -102,4 +105,3 @@ small{
     padding: .5rem;
     border-radius: 5px;
 }
-

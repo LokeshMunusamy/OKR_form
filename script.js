@@ -14,6 +14,9 @@ let appendQualification = document.querySelector('.append-eduction');
 let proofs = document.querySelectorAll('.kyc');
 let proofError = document.querySelectorAll('.kyc-detail');
 
+let progressLine = document.querySelector('.under-line')
+let progressLine1 = document.querySelector('.under-line1')
+
 let storedData = JSON.parse(localStorage.getItem('details') || '[]');
 let temporary = JSON.parse(localStorage.getItem('userData')) || {
   name: '',
@@ -147,11 +150,14 @@ next.addEventListener('click', (e) => {
 
     if (currentForm === 0) {
         isValid = validateFormInputs();
+        progressLine.classList.add('active');
+        
     } else if (currentForm === 1) {
         if (userQualification.length === 0) {
             alert("Please add at least one qualification.");
             isValid = false;
         }
+        progressLine1.classList.add('active');
     } else {
         isValid = checkProof();
     }
@@ -207,6 +213,10 @@ previous.addEventListener('click', (e) => {
         showForm(currentForm);
         changeButtons();
     }
+    currentForm==1?progressLine1.classList.remove('active'):
+    currentForm==0?progressLine.classList.remove('active'):
+    progressLine.classList.add('active');
+    
 });
 
 addEducation.addEventListener('click', (e) => {
