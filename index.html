@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        
+        <form action="" class="user-form">
+            <div class="line">
+                <div class="stage">1</div>
+                <div class="under-line"></div>
+                <div class="stage">2</div>
+                <div class="under-line"></div>
+                <div class="stage">3</div>
+            </div>
+            <div id="personal_details" class="page">
+                <h2>Personal Details</h2>
+                <label for="name">Name</label>
+                <input type="text" id="name" placeholder="Enter the Name" class="user-value" oninput="updateInputValue()">
+                <small class="first-form">Please Enter the Name</small>
+                <label for="age">Age</label>
+                <input type="number" id="age" placeholder="Enter the Age" class="user-value" oninput="updateInputValue()">
+                <small class="first-form">Please Enter the Age</small>
+                <label for="dob">DOB</label>
+                <input type="date" id="dob" class="user-value" oninput="updateInputValue()">
+                <small class="first-form">Please Select Your DOB</small>
+                <label>Gender</label>
+                <label for="male"><input type="radio" name="gender" id="male">Male</label>
+                <label for="female"><input type="radio" name="gender" id="female">Female</label>
+                <!-- <small>Please select Your Gender</small> -->
+                <label for="father">Father Name</label>
+                <input type="text" placeholder="Enter the Father Name" id="father" class="user-value" oninput="updateInputValue()">
+                <small class="first-form">Please Enter the Father Name</small>
+                <label for="mother">Mother Name</label>
+                <input type="text" id="mother" placeholder="Enter the Mother Name" class="user-value" oninput="updateInputValue()">
+                <small class="first-form">Please Enter the Mother Name</small>
+            </div>
+            <div id="education" class="page">
+                <h2>Educational Details</h2>
+                <div class="qulification">
+                    <div>
+                        <input type="text" placeholder="Enter The qulification" class="qulified">
+                        <small class="educate">Please Enter the Qulify Details</small>
+                    </div>
+                    <div>
+                        <input type="number" placeholder="Enter Year of Passed Out" class="qulified">
+                        <small class="educate">Please enter a valid passed out year (YYYY).</small>
+                    </div>
+                    <button class="add-qulification">Add</button>
+                </div>
+                <div class="append-eduction">
+
+                </div>
+            </div>
+            <div id="authentication" class="page">
+                <h2>verification Details</h2>
+                <div>
+                    <label for="aadhar">Upload your Aadhar</label>
+                    <input type="file" accept=".jpg,.png,.pdf" id="aadhar" class="kyc">
+                    <small class="kyc-detail">Please Upload your Aadhar</small>
+                </div>
+                <div>
+                    <label for="pancard">Upload your Pancard</label>
+                    <input type="file" accept=".jpg,.png,.pdf" id="pancard" class="kyc">
+                    <small class="kyc-detail">Please Upload your Pancard</small>
+                </div>
+         
+            </div>
+            <div class="nvigation">
+                <button class="back">Back</button>
+                <button class="next">Next</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh; */
+}
+.user-form{
+    width: 50%;
+    padding: 1rem;
+    background-color: aquamarine;
+    border-radius: 8px;
+}
+#personal_details{
+    width: 90%;
+    display: none;
+    flex-direction: column;
+    margin: auto;
+}
+.nvigation button{
+    padding: .5rem;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+}
+input{
+    padding: .5rem;
+    outline: none;
+    margin-top: .5rem ;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+label{
+    margin-top: .4rem;
+}
+small{
+    display: none;
+    color: red;
+}
+.line{
+    width: 90%;
+    margin: .8rem auto;
+    display: flex;
+    justify-content: space-between;
+}
+.stage{
+    font-size: 1.5rem;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    background-color: rgb(195, 230, 206);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 26px;
+}
+.under-line{
+    width: 40%;
+    align-self: center;
+    height: .3rem;
+    background-color: aqua;
+}
+.nvigation{
+    width: 90%;
+    margin: .5rem auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.qulification{
+    width: 90%;
+    margin:  auto;
+    display: flex;
+    gap: .4rem;
+}
+#education{
+    /* display: flex; */
+    flex-direction: column;
+    justify-content: center;
+}
+.qulification button{
+    align-self: center;
+    padding: .5rem;
+    margin-top: .5rem ;
+}
+#authentication{
+    /* display: flex; */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.education-container{
+    display: flex;
+    justify-content: space-around;
+    margin: .5rem 0;
+    border: 1px solid;
+    padding: .5rem;
+    border-radius: 5px;
+}
+
