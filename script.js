@@ -15,13 +15,18 @@ let proofs = document.querySelectorAll('.kyc');
 let proofError = document.querySelectorAll('.kyc-detail');
 
 let storedData = JSON.parse(localStorage.getItem('details') || '[]');
-
-let temporary = JSON.parse(localStorage.getItem('userData')) || [{name:'',age: '',dob:'',gender:'',fatherName:'',motherName:'',qualification:[],aadhar:'',panCard:''}];
-
-
+let temporary = JSON.parse(localStorage.getItem('userData')) || {
+  name: '',
+  age: '',
+  dob: '',
+  fatherName: '',
+  motherName: '',
+  qualifications: [],
+  aadhar: '',
+  panCard: ''
+};
 
 let userQualification = [];
-
 let currentForm = 0;
 
 function showForm(index) {
@@ -61,10 +66,10 @@ function validateEducationInputs() {
     return isValid;
 }
 
-function checkProof(){
+function checkProof() {
     let isValid = true;
-    proofs.forEach((proof,i)=>{
-        if (proof.value === '') {
+    proofs.forEach((proof, i) => {
+        if (proof.value.trim() === '') {
             proofError[i].style.display = 'block';
             isValid = false;
         } else {
@@ -77,64 +82,117 @@ function checkProof(){
 showForm(currentForm);
 changeButtons();
 
-
-function updateInputValue(){
-
-    if(currentForm === 0){
-        temporary[0].name =formInputs[0].value;
-        temporary[0].age = formInputs[1].value;
-        temporary[0].dob = formInputs[2].value;
-        temporary[0].fatherName = formInputs[3].value;
-        temporary[0].motherName = formInputs[4].value;
+function updateInputValue() {
+    if (currentForm === 0) {
+        temporary.name = formInputs[0].value;
+        temporary.age = formInputs[1].value;
+        temporary.dob = formInputs[2].value;
+        temporary.fatherName = formInputs[3].value;
+        temporary.motherName = formInputs[4].value;
+    }
+    else if (currentForm === 1) {
+        temporary.qualifications = userQualification;
+    } else {
+        temporary.aadhar = proofs[0].value;
+        temporary.panCard = proofs[1].value;
     }
 
-    localStorage.setItem('userData',JSON.stringify(temporary));
-   
+    localStorage.setItem('userData', JSON.stringify(temporary));
 }
-// updateInputValue();
 
+document.addEventListener('DOMContentLoaded', () => {
+    if (temporary) {
+        formInputs[0].value = temporary.name || '';
+        formInputs[1].value = temporary.age || '';
+        formInputs[2].value = temporary.dob || '';
+        formInputs[3].value = temporary.fatherName || '';
+        formInputs[4].value = temporary.motherName || '';
+        
+        if (temporary.qualifications && temporary.qualifications.length > 0) {
+            userQualification = temporary.qualifications;
+            renderQualifications();
+        }
+        
+        proofs[0].value = temporary.aadhar || '';
+        proofs[1].value = temporary.panCard || '';
+    }
+});
 
-document.addEventListener('DOMContentLoaded',()=>{
-    temporary = JSON.parse(localStorage.getItem('userData'));
-    formInputs[0].value = temporary[0].name;
-    formInputs[1].value = temporary[0].age;
-    formInputs[2].value = temporary[0].dob;
-    formInputs[3].value =temporary[0].fatherName;
-    formInputs[4].value =temporary[0].motherName;
-})
+function renderQualifications() {
+    appendQualification.innerHTML = "";
+    userQualification.forEach((ele, i) => {
+        let educationDetail = document.createElement('div');
+        educationDetail.className = 'education-container';
+        educationDetail.innerHTML = `
+            <label>Qualification:</label>
+            <p class="test">${ele.qualification}</p>
+            <p>Completed Year: ${ele.pass}</p> 
+            <button class='del'>Delete</button>
+        `;
+        appendQualification.appendChild(educationDetail);
+
+        educationDetail.querySelector('.del').addEventListener('click', (e) => {
+            e.preventDefault();
+            userQualification.splice(i, 1);
+            temporary.qualifications = userQualification;
+            localStorage.setItem('userData', JSON.stringify(temporary));
+            renderQualifications();
+        });
+    });
+}
 
 next.addEventListener('click', (e) => {
     e.preventDefault();
-
     let isValid = true;
 
     if (currentForm === 0) {
         isValid = validateFormInputs();
     } else if (currentForm === 1) {
-        let qualifications = document.querySelectorAll('.education-container');
-        
-        if (!qualifications.length > 0) {
+        if (userQualification.length === 0) {
             alert("Please add at least one qualification.");
             isValid = false;
         }
-    }else{
-        
-        if(checkProof()){
-            console.log(checkProof());
-            form.reset();
-            
-        }else{
-            isValid = false;
-        }
+    } else {
+        isValid = checkProof();
     }
 
-    if (isValid && currentForm < forms.length) {
-        // console.log(currentForm);
-        currentForm++;
-        if(currentForm===3){
+    if (isValid) {
+        updateInputValue();
+        
+        if (currentForm === forms.length - 1) {
+            
+            storedData.push({
+                name: temporary.name,
+                age: temporary.age,
+                dob: temporary.dob,
+                gender: temporary.gender,
+                fatherName: temporary.fatherName,
+                motherName: temporary.motherName,
+                qualifications: userQualification,
+                aadhar: temporary.aadhar,
+                panCard: temporary.panCard
+            });
+
+            localStorage.setItem('details', JSON.stringify(storedData));
+            localStorage.removeItem('userData');
+            
+            form.reset();
+            userQualification = [];
+            appendQualification.innerHTML = "";
             currentForm = 0;
-            appendQualification.innerHTML = ""
-            // console.log(currentForm+'  2');
+            temporary = {
+                name: '',
+                age: '',
+                dob: '',
+                gender: '',
+                fatherName: '',
+                motherName: '',
+                qualifications: [],
+                aadhar: '',
+                panCard: ''
+            };
+        } else {
+            currentForm++;
         }
         
         showForm(currentForm);
@@ -164,58 +222,14 @@ addEducation.addEventListener('click', (e) => {
         } else {
             educationErrors[1].style.display = 'none';
         }
-        userQualification.push({qualification:`${qualification}`,pass:`${year}`});
-        console.log(userQualification);
         
-        appendQualification.innerHTML = "";
-        userQualification.forEach((ele,i)=>{
-            
-            let educationDetail = document.createElement('div');
-            educationDetail.className = 'education-container';
-            educationDetail.innerHTML = `
-            <label>Qualification:</label>
-                <p class="test">${ele.qualification}</p>
-                <p>Completed Year: ${ele.pass}</p> 
-                <button type="button" onclick="edit()" class='edit'>edit</button>
-                <button class='del'>Delete</button>
-            `;
-            appendQualification.appendChild(educationDetail);
-
-            let dele = educationDetail.querySelector('.del');
-            dele.addEventListener('click',(e)=>{
-                e.preventDefault();
-                console.log(i);
-                
-            })
-        })
-
+        userQualification.push({
+            qualification: qualification,
+            pass: year
+        });
+        
+        renderQualifications();
         studyInputs.forEach(input => input.value = '');
+        updateInputValue();
     }
 });
-
-
-// function edit(){
-    
-//     let target = window.document.querySelector(".test");
-//     let value = target.innerText
-//     target.parentElement.innerHTML +=`<input type="text" value=${value}></input>`
-    
-//     target.remove();
-    
-// }
-
-
-
-// let a = [{name:'loke',age: '',dob:'',gender:'',fatherName:'',motherName:'',qualification:[],aadhar:'',panCard:''}];
-
-// if(!a[0].gender||a[0].gender){
-//     a[0].gender = 'good';
-// }
-
-// console.log(a);
-
-
-// let b =[{name:'loke',age:21}];
-// b[0].name = 'vicky';
-
-// console.log(b);

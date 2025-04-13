@@ -28,10 +28,6 @@
                 <label for="dob">DOB</label>
                 <input type="date" id="dob" class="user-value" oninput="updateInputValue()">
                 <small class="first-form">Please Select Your DOB</small>
-                <label>Gender</label>
-                <label for="male"><input type="radio" name="gender" id="male">Male</label>
-                <label for="female"><input type="radio" name="gender" id="female">Female</label>
-                <!-- <small>Please select Your Gender</small> -->
                 <label for="father">Father Name</label>
                 <input type="text" placeholder="Enter the Father Name" id="father" class="user-value" oninput="updateInputValue()">
                 <small class="first-form">Please Enter the Father Name</small>
@@ -43,11 +39,11 @@
                 <h2>Educational Details</h2>
                 <div class="qulification">
                     <div>
-                        <input type="text" placeholder="Enter The qulification" class="qulified">
+                        <input type="text" placeholder="Enter The qulification" class="qulified" oninput="updateInputValue()">
                         <small class="educate">Please Enter the Qulify Details</small>
                     </div>
                     <div>
-                        <input type="number" placeholder="Enter Year of Passed Out" class="qulified">
+                        <input type="number" placeholder="Enter Year of Passed Out" class="qulified" oninput="updateInputValue()">
                         <small class="educate">Please enter a valid passed out year (YYYY).</small>
                     </div>
                     <button class="add-qulification">Add</button>
@@ -60,12 +56,12 @@
                 <h2>verification Details</h2>
                 <div>
                     <label for="aadhar">Upload your Aadhar</label>
-                    <input type="file" accept=".jpg,.png,.pdf" id="aadhar" class="kyc">
+                    <input type="file" accept=".jpg,.png,.pdf" id="aadhar" class="kyc" oninput="updateInputValue()">
                     <small class="kyc-detail">Please Upload your Aadhar</small>
                 </div>
                 <div>
                     <label for="pancard">Upload your Pancard</label>
-                    <input type="file" accept=".jpg,.png,.pdf" id="pancard" class="kyc">
+                    <input type="file" accept=".jpg,.png,.pdf" id="pancard" class="kyc" oninput="updateInputValue()">
                     <small class="kyc-detail">Please Upload your Pancard</small>
                 </div>
          
